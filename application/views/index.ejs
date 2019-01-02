@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%=data[0].name;%></title>
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/react.js" crossorigin></script>
+    <script type="text/javascript" src="socket.js"></script>
+    <script type="text/javascript">
+        var node = io.connect( 'http://52.66.77.98/');
+        node.on('chat', function(data){
+            var ct = document.getElementById('address');
+            ct.value = ct.value+'\n'+data.message;
+        });
+        $(document).ready(function () {
+            $('#user-submit').click(function () {
+                var payload = {
+                    name: $('#user-name').val(),
+                    address: $('#address').val(),
+                    email: $('#email').val(),
+                    phone: $('#phone').val()
+                }
+                $.ajax({
+                    url: "/users",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('#output').html(data.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+  </head>
+  <body>
+    <div id="like_button_container"></div>
+    <% include header %>
+    <textarea id="address" style="height: 600px; width: 100%;"></textarea>
+    <p id="output"></p>
+    <script type="text/javascript">
+        const domContainer = document.querySelector('#like_button_container');
+        var hiu = React.createElement('a', {href: '#'}, 'hello');
+        ReactDOM.render(hiu, domContainer);
+    </script>
+  </body>
+</html>
