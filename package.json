@@ -1,14 +1,14 @@
 {
-  "name": "initnode",
+  "name": "crew",
   "version": "2.0.0",
   "description": "In Node Js, Basic Routes,Socket and MongoDb configuration and its Module",
   "main": "index.js",
   "scripts": {
-    "test": "initnode"
+    "test": "crew"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/karthisgk/InitNode.git"
+    "url": "https://github.com/karthisgk/crew.git"
   },
   "keywords": [
     "nodejs",
@@ -28,7 +28,7 @@
     "socket.io": "^2.0.4"
   },
   "bugs": {
-    "url": "https://github.com/karthisgk/InitNode/issues"
+    "url": "https://github.com/karthisgk/crew/issues"
   },
-  "homepage": "https://github.com/karthisgk/InitNode#readme"
+  "homepage": "https://github.com/karthisgk/crew"
 }

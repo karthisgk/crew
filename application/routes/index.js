@@ -3,7 +3,7 @@ function Routes(app){
 	var self = this;
 	self.db = require('../config').db;
 	app.get('/', function(req, res) {
-		self.db.get('user', {name: "karthi"}, function(data){
+		self.db.get('settings', {}, function(data){
 			res.render('index', {data : data});
 		});
 	});
