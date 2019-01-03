@@ -1,10 +1,10 @@
 {
-  "name": "crew",
+  "name": "smix",
   "version": "2.0.0",
   "description": "In Node Js, Basic Routes,Socket and MongoDb configuration and its Module",
   "main": "index.js",
   "scripts": {
-    "test": "crew"
+    "test": "smix"
   },
   "repository": {
     "type": "git",
