@@ -8,11 +8,10 @@ function Routes(app){
 		});
 	});
 
-	app.post('/users', function (req, res) {
-	    
-	});
-	app.get('/session', function(req, res) {
-		res.send(JSON.stringify(req.session));
+	app.post('/authenticate', function (req, res) {
+	    self.db.authenticate(req.body, data => {
+	    	res.json(data);
+	    })
 	});
 	self.r = app;
 }

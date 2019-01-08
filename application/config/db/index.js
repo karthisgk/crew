@@ -72,4 +72,16 @@ DB.prototype.get =  function(tbName, wh, cb){
 	});
 };
 
+DB.prototype.authenticate = function(prof, cb) {
+	this.get('user', {email: prof.email}, (data) => {
+		var rt = prof;
+		rt.isNewUser = true;
+		if(data.length > 0){
+			rt = data[0];
+			rt.isNewUser = false;			
+		}
+		cb(rt);
+	});
+}
+
 module.exports = DB;
