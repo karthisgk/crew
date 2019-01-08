@@ -1,14 +1,15 @@
 {
-  "name": "crew",
+  "name": "smix",
   "version": "2.0.0",
   "description": "In Node Js, Basic Routes,Socket and MongoDb configuration and its Module",
   "main": "index.js",
   "scripts": {
-    "test": "crew"
+    "start": "node application/app.js start",
+    "test": "smix"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/karthisgk/crew.git"
+    "url": "https://github.com/karthisgk/smix.git"
   },
   "keywords": [
     "nodejs",
@@ -28,7 +29,7 @@
     "socket.io": "^2.0.4"
   },
   "bugs": {
-    "url": "https://github.com/karthisgk/crew/issues"
+    "url": "https://github.com/karthisgk/smix/issues"
   },
-  "homepage": "https://github.com/karthisgk/crew"
+  "homepage": "https://github.com/karthisgk/smix"
 }
