@@ -20,8 +20,10 @@ DB.prototype.insert = function(tbName, data, cb) {
 	this.connect(function(db){
 		if(typeof data.length === "undefined"){
 			db.collection(tbName).insertOne(data, function(err, r){
-				assert.equal(null, err);
-      			assert.equal(2, r.insertedCount);
+				if(err){
+					assert.equal(null, err);
+	      			assert.equal(2, r.insertedCount);
+	      		}
       			cb(err, r);
 			});
 		}else{
@@ -30,8 +32,10 @@ DB.prototype.insert = function(tbName, data, cb) {
 				return;
 			}
 			db.collection(tbName).insertMany(data, function(err, r){
-				assert.equal(null, err);
-      			assert.equal(2, r.insertedCount);
+				if(err){
+					assert.equal(null, err);
+	      			assert.equal(2, r.insertedCount);
+	      		}
       			cb(err, r);
 			});
 		}
@@ -42,9 +46,11 @@ DB.prototype.update = function(tbName, wh, data, cb){
 	this.connect(function(db){
 		if(typeof data.length === "undefined"){
 			db.collection(tbName).updateOne(data, wh, function(err, r){
-				assert.equal(null, err);
-      			assert.equal(1, r.matchedCount);
-      			assert.equal(1, r.modifiedCount);
+				if(err){
+					assert.equal(null, err);
+	      			assert.equal(1, r.matchedCount);
+	      			assert.equal(1, r.modifiedCount);
+	      		}
       			cb(err, r);
 			});
 		}else{
@@ -53,9 +59,11 @@ DB.prototype.update = function(tbName, wh, data, cb){
 				return;
 			}
 			db.collection(tbName).updateMany(data, wh, function(err, r){
-				assert.equal(null, err);
-      			assert.equal(1, r.matchedCount);
-      			assert.equal(1, r.modifiedCount);
+				if(err){
+					assert.equal(null, err);
+	      			assert.equal(1, r.matchedCount);
+	      			assert.equal(1, r.modifiedCount);
+	      		}
       			cb(err, r);
 			});
 		}
