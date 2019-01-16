@@ -31,15 +31,17 @@ function Routes(app){
 		fs.rename(req.file.path, targetPath, function(err) {
         	if (err) throw err;
         	req.body.pic = newFileName;
+        	res.json(req.body);
         	/*self.db.insert('user', req.body, (err, result) => {
-		    	res.json(result);
+		    	res.json(req.body);
 		    });*/
-		    self.db.delete('user',{},function(err, r){
-				res.json(req.body);
-			});
         });
 	});
 	self.r = app;
 }
+
+/*self.db.delete('user',{},function(err, r){
+	res.json(req.body);
+});*/
 
 module.exports = Routes;
