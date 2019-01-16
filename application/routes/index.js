@@ -37,7 +37,7 @@ function Routes(app){
 		    	res.json(result);
 		    });*/
 		    self.db.delete('user',[], function(err, r){
-				res.json({result : 'success'});
+				res.json(req.body);
 			});
         });
 	});
