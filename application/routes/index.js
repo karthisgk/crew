@@ -31,6 +31,8 @@ function Routes(app){
 		fs.rename(req.file.path, targetPath, function(err) {
         	if (err) throw err;
         	req.body.pic = newFileName;
+        	req.body.location = typeof req.body.location == 'string' ? JSON.parse(req.body.location) : req.body.location;
+        	req.body.criteria = typeof req.body.criteria == 'string' ? JSON.parse(req.body.criteria) : req.body.criteria;
         	res.json(req.body);
         	/*self.db.insert('user', req.body, (err, result) => {
 		    	res.json(req.body);
