@@ -23,6 +23,7 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "mongodb": "^2.2.36",
+    "multer": "^1.4.1",
     "mysql": "^2.15.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
