@@ -33,10 +33,9 @@ function Routes(app){
         	req.body.pic = newFileName;
         	req.body.location = typeof req.body.location == 'string' ? JSON.parse(req.body.location) : req.body.location;
         	req.body.criteria = typeof req.body.criteria == 'string' ? JSON.parse(req.body.criteria) : req.body.criteria;
-        	res.json({response: "success", approvedSession: req.body});
-        	/*self.db.insert('user', req.body, (err, result) => {
-		    	res.json(req.body);
-		    });*/
+        	self.db.insert('user', req.body, (err, result) => {
+		    	res.json({response: "success", approvedSession: req.body});
+		    });
         });
 	});
 	self.r = app;
