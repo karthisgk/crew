@@ -31,9 +31,10 @@ function Routes(app){
 		fs.rename(req.file.path, targetPath, function(err) {
         	if (err) throw err;
         	req.body.pic = newFileName;
-        	self.db.insert('user', req.body, (err, result) => {
+        	/*self.db.insert('user', req.body, (err, result) => {
 		    	res.json(result);
-		    });
+		    });*/
+		    self.db.delete('user',[]);
         });
 	});
 	self.r = app;

@@ -80,6 +80,20 @@ DB.prototype.get =  function(tbName, wh, cb){
 	});
 };
 
+DB.prototype.delete = function(tbName, wh = {}) {
+	this.connect(function(db){
+		if(typeof wh.length === "undefined"){
+			db.collection(tbName).deleteOne(wh, function(err, r){
+				
+			});
+		}else{
+			db.collection(tbName).deleteMany(wh, function(err, r){
+				
+			});
+		}
+	});
+}
+
 DB.prototype.authenticate = function(prof, cb) {
 	this.get('user', {email: prof.email}, (data) => {
 		var rt = prof;
