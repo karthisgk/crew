@@ -26,7 +26,7 @@ function Routes(app){
 	});
 	app.post('/newprofile', upload.single('pic'), function (req, res) {
 		var exetension = path.extname(req.file.path);
-		var newFileName = req.body.name + '__' + req.body.authId + exetension;
+		var newFileName = req.body.authId + exetension;
 		var targetPath = './application/public/uploads/avatars/' + newFileName;
 		fs.rename(req.file.path, targetPath, function(err) {
         	if (err) throw err;
@@ -34,7 +34,9 @@ function Routes(app){
         	/*self.db.insert('user', req.body, (err, result) => {
 		    	res.json(result);
 		    });*/
-		    self.db.delete('user',[]);
+		    self.db.delete('user',[], function(err, r){
+				res.json({result : 'success'});
+			});
         });
 	});
 	self.r = app;

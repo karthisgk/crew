@@ -80,16 +80,12 @@ DB.prototype.get =  function(tbName, wh, cb){
 	});
 };
 
-DB.prototype.delete = function(tbName, wh) {
+DB.prototype.delete = function(tbName, wh, cb) {
 	this.connect(function(db){
 		if(typeof wh.length === "undefined"){
-			db.collection(tbName).deleteOne(wh, function(err, r){
-				
-			});
+			db.collection(tbName).deleteOne(wh, cb);
 		}else{
-			db.collection(tbName).deleteMany(wh, function(err, r){
-				
-			});
+			db.collection(tbName).deleteMany(wh, cb);
 		}
 	});
 }
