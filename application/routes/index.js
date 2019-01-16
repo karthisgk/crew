@@ -15,9 +15,7 @@ function Routes(app){
 	self.db = require('../config').db;
 	app.get('/', function(req, res) {
 		self.db.get('settings', {}, function(data){			
-			self.db.delete('user',[], function(err, r){
-				res.render('index', {data : data});
-			});
+			res.render('index', {data : data});
 		});
 	});
 
@@ -36,7 +34,7 @@ function Routes(app){
         	/*self.db.insert('user', req.body, (err, result) => {
 		    	res.json(result);
 		    });*/
-		    self.db.delete('user',[], function(err, r){
+		    self.db.delete('user',{},function(err, r){
 				res.json(req.body);
 			});
         });
