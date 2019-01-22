@@ -100,4 +100,32 @@ DB.prototype.authenticate = function(prof, cb) {
 	});
 }
 
+DB.prototype.fetchUser = function(req, cb) {
+	var km = req.location.dist;
+	if(req.location.distType == 'mi')
+		km = km * 1.60934; /* km * mi*/
+	var distance = km * 0.1 / 11;
+	var LatN = req.location.lat + distance;
+  	var LatS = req.location.lat - distance;
+  	var LonE = req.location.lng + distance;
+  	var LonW = req.location.lng - distance;
+	var cond = {
+		$and: [
+			{'location.lat': { $lte: LatN}},
+			{'location.lat': { $gte: LatS}},
+			{'location.lng': { $lte: LonE}},
+			{'location.lng': { $gte: LonW}},
+			{'gender': req.gender},
+			{$and: [ 
+					{'Age': {$gte: req.Age[0]}},
+					{'Age': {$lte: req.Age[1]}}
+				]
+			}
+		]
+	};
+	this.get('user', cond, data => {
+		cb(data);
+	});
+};
+
 module.exports = DB;
