@@ -70,11 +70,10 @@ DB.prototype.update = function(tbName, wh, data, cb){
 	});
 };
 
-DB.prototype.get =  function(tbName, wh, cb, opt){
-	var opt = typeof opt == 'undefined' ? {} : opt;
+DB.prototype.get =  function(tbName, wh, cb){
 	this.connect(function(db){
 		if(typeof wh.length === "undefined"){
-			db.collection(tbName).find(wh, opt).toArray((err, data) => {
+			db.collection(tbName).find(wh).toArray((err, data) => {
 				cb(data);
 		  	});
 		}
@@ -124,9 +123,11 @@ DB.prototype.fetchUser = function(req, cb) {
 			}
 		]
 	};
-	this.get('user', cond, (data) => {
-		cb(data);
-	}, {limit: 10, skip: req.body.offset});
+	this.connect(function(db){
+		db.collection('user').find(cond, {limit: 10, skip: req.body.offset}).toArray((err, data) => {
+			cb(data);
+	  	});
+	});
 };
 
 module.exports = DB;
