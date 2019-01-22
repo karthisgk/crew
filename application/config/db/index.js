@@ -125,7 +125,7 @@ DB.prototype.fetchUser = function(req, cb) {
 	};
 	this.connect(function(db){
 		db.collection('user').find(cond)
-		.limit(10).skip(req.body.offset)
+		.limit(10).skip(typeof req.offset == 'undefined' ? 0 : req.offset)
 		.toArray((err, data) => {
 			cb(data);
 	  	});
