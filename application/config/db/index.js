@@ -116,12 +116,15 @@ DB.prototype.fetchUser = function(req, cb) {
 			{'location.lng': { $lte: LonE}},
 			{'location.lng': { $gte: LonW}},
 			{'gender': req.gender},
-			{'Age': {$gte: req.Age[0]}},
-			{'Age': {$lte: req.Age[1]}}
+			{$and: [ 
+					{'Age': {$gte: req.Age[0]}},
+					{'Age': {$lte: req.Age[1]}}
+				]
+			}
 		]
 	};
 	this.connect(function(db){
-		db.collection('user').find(cond,{limit: 10, skip: req.body.offset}).toArray((err, data) => {
+		db.collection('user').find(cond).toArray((err, data) => {
 			cb(data);
 	  	});
 	});
