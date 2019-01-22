@@ -124,7 +124,9 @@ DB.prototype.fetchUser = function(req, cb) {
 		]
 	};
 	this.connect(function(db){
-		db.collection('user').find(cond).toArray((err, data) => {
+		db.collection('user').find(cond)
+		.limit(10).skip(req.body.offset)
+		.toArray((err, data) => {
 			cb(data);
 	  	});
 	});
