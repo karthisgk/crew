@@ -101,14 +101,14 @@ DB.prototype.authenticate = function(prof, cb) {
 };
 
 DB.prototype.fetchUser = function(req, cb) {
-	var km = req.location.dist;
-	if(req.location.distType == 'mi')
+	var km = req.dist;
+	if(req.distType == 'mi')
 		km = km * 1.60934; /* km * mi*/
 	var distance = km * 0.1 / 11;
-	var LatN = req.location.lat + distance;
-  	var LatS = req.location.lat - distance;
-  	var LonE = req.location.lng + distance;
-  	var LonW = req.location.lng - distance;
+	var LatN = req.lat + distance;
+  	var LatS = req.lat - distance;
+  	var LonE = req.lng + distance;
+  	var LonW = req.lng - distance;
 	var cond = {
 		$and: [
 			{'location.lat': { $lte: LatN}},
