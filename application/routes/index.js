@@ -31,12 +31,19 @@ function Routes(app){
 		fs.rename(req.file.path, targetPath, function(err) {
         	if (err) throw err;
         	req.body.pic = newFileName;
+        	req.body.Age = parseInt(req.body.Age);
         	req.body.location = typeof req.body.location == 'string' ? JSON.parse(req.body.location) : req.body.location;
         	req.body.criteria = typeof req.body.criteria == 'string' ? JSON.parse(req.body.criteria) : req.body.criteria;
         	self.db.insert('user', req.body, (err, result) => {
 		    	res.json({response: "success", approvedSession: req.body});
 		    });
         });
+	});
+
+	app.post('/fetch_user', function(req, res){
+		self.db.fetchUser(req.body, profiles => {
+			res.json(profiles);
+		});
 	});
 	self.r = app;
 }
