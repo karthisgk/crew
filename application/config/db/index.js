@@ -123,11 +123,12 @@ DB.prototype.fetchUser = function(req, cb) {
 			}
 		]
 	};
-	this.connect(function(db){
+	cb(req);
+	/*this.connect(function(db){
 		db.collection('user').find(cond,{limit: 10, skip: req.body.offset}).toArray((err, data) => {
 			cb(data);
 	  	});
-	});
+	});*/
 };
 
 module.exports = DB;
