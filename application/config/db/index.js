@@ -87,7 +87,7 @@ DB.prototype.delete = function(tbName, wh, cb) {
 			db.collection(tbName).remove(wh, cb);
 		}
 	});
-}
+};
 
 DB.prototype.authenticate = function(prof, cb) {
 	this.get('user', {email: prof.email}, (data) => {
@@ -99,7 +99,7 @@ DB.prototype.authenticate = function(prof, cb) {
 		}
 		cb(rt);
 	});
-}
+};
 
 DB.prototype.fetchUser = function(req, cb) {
 	var km = req.location.dist;
