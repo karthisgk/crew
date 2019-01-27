@@ -45,6 +45,88 @@ function Routes(app){
 			res.json(profiles);
 		});
 	});
+
+	app.post('/trigger_like', function(req, res){
+		var cond = {
+			first_persion: req.body.persion_b,
+			second_persion: req.body.persion_a
+		};
+		self.db.get('likes', cond, data => {
+			var insertData = {};		
+			if(data.length > 0){
+				self.db.update('likes', cond, {spLiked: 1}, (err, result) => {
+					res.json({response: "success", isMatched: data[0].fpLiked});
+				});
+			}else{
+				var IND = {
+					first_persion: req.body.persion_a,
+					second_persion: req.body.persion_b,
+					fpLiked: 1,
+					spLiked: null
+				};
+				self.db.insert('likes', IND, (err, result) => {
+					res.json({response: "success", isMatched: 0});
+				});
+			}
+		});
+	});
+
+	app.post('/trigger_unlike', function(req, res){
+		var cond = {
+			first_persion: req.body.persion_b,
+			second_persion: req.body.persion_a
+		};
+		self.db.get('likes', cond, data => {
+			var insertData = {};		
+			if(data.length > 0){
+				self.db.update('likes', cond, {spLiked: 0}, (err, result) => {
+					res.json({response: "success"});
+				});
+			}else{
+				var IND = {
+					first_persion: req.body.persion_a,
+					second_persion: req.body.persion_b,
+					fpLiked: 0,
+					spLiked: null
+				};
+				self.db.insert('likes', IND, (err, result) => {
+					res.json({response: "success"});
+				});
+			}
+		});
+	});
+
+	app.post('/get_unlikes', function(req, res){
+		var cond = {
+			$or: [
+				{$and : [
+					{first_persion: req.body._id},
+					{fpLiked: 0}
+				]},
+				{$and : [
+					{second_persion: req.body._id},
+					{spLiked: 0}
+				]}
+			]
+		};
+		self.db,get('likes', cond, data => {
+			req.json(data);
+		});
+	});
+
+	app.post('/get_who_liked_u', function(req, res){
+		var cond = {
+			$and: [
+				{second_persion: req.body._id},
+				{fpLiked: 1},
+				{spLiked: null}
+			]
+		};
+		self.db,get('likes', cond, data => {
+			req.json(data);
+		});
+	});
+
 	self.r = app;
 }
 
