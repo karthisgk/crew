@@ -28,13 +28,20 @@ function Routes(app){
 	    	res.json(data);
 	    });
 	});
-	app.post('/newprofile', function (req, res) {
-		res.json({
-			response: "error",
-			approvedSession: req.body,
-			cond: req.hasOwnProperty('body'),
-			cond1: req.body.hasOwnProperty('email')
-		});
+	app.post('/newprofile', upload.single('pic'), function (req, res) {
+		var exetension = path.extname(req.file.path);
+		var newFileName = req.body.authId + exetension;
+		var targetPath = './application/public/uploads/avatars/' + newFileName;
+		fs.rename(req.file.path, targetPath, function(err) {
+        	if (err) throw err;
+        	req.body.pic = newFileName;
+        	req.body.Age = parseInt(req.body.Age);
+        	req.body.location = typeof req.body.location == 'string' ? JSON.parse(req.body.location) : req.body.location;
+        	req.body.criteria = typeof req.body.criteria == 'string' ? JSON.parse(req.body.criteria) : req.body.criteria;
+        	self.db.insert('user', req.body, (err, result) => {
+		    	res.json({response: "success", approvedSession: req.body});
+		    });
+        });
 	});
 
 	app.post('/fetch_user', function(req, res){
