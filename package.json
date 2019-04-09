@@ -28,7 +28,7 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-native-snap-carousel": "^3.7.5",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.2.0"
   },
   "bugs": {
     "url": "https://github.com/karthisgk/smix/issues"
