@@ -1,15 +1,19 @@
 var multer  = require('multer');
 var path = require('path');
+const fs = require('fs');
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-	    cb(null, './application/public/uploads/tmp/')
+		var dir = './application/public/uploads/tmp/';
+		if (!fs.existsSync(dir)){
+		    fs.mkdirSync(dir);
+		}
+	    cb(null, dir);
 	},
 	filename: function (req, file, cb) {
 	    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
 	}
 });
 var upload = multer({ storage: storage });
-const fs = require('fs');
 function Routes(app){
 	var self = this;
 	self.db = require('../config').db;
