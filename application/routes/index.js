@@ -28,8 +28,13 @@ function Routes(app){
 	    	res.json(data);
 	    });
 	});
-	app.post('/newprofile', upload.single('pic'), function (req, res) {
-		res.json({response: "error", approvedSession: req.body});
+	app.post('/newprofile', function (req, res) {
+		res.json({
+			response: "error",
+			approvedSession: req.body,
+			cond: req.hasOwnProperty('body'),
+			cond1: req.body.hasOwnProperty('email')
+		});
 	});
 
 	app.post('/fetch_user', function(req, res){
