@@ -28,7 +28,7 @@ function Routes(app){
 	    	res.json(data);
 	    });
 	});
-	app.post('/newprofile', function (req, res) {
+	app.post('/newprofile', upload.single('pic'), function (req, res) {
 		res.json({response: "error", approvedSession: req.body});
 	});
 
