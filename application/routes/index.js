@@ -18,8 +18,8 @@ function Routes(app){
 	var self = this;
 	self.db = require('../config').db;
 	app.get('/', function(req, res) {
-		self.db.get('settings', {}, function(data){			
-			res.render('index', {data : data});
+		self.db.get('settings', {}, function(data){	
+			res.render('index', {data : data, baseurl: '52.66.77.98'});
 		});
 	});
 
@@ -59,7 +59,7 @@ function Routes(app){
 			var insertData = {};		
 			if(data.length > 0){
 				self.db.update('likes', cond, {spLiked: 1}, (err, result) => {
-					res.json({response: "success", isMatched: data[0].fpLiked});
+					res.json({response: "success", isMatched: data[0].fpLiked, bd: req.body});
 				});
 			}else{
 				var IND = {
@@ -69,7 +69,7 @@ function Routes(app){
 					spLiked: null
 				};
 				self.db.insert('likes', IND, (err, result) => {
-					res.json({response: "success", isMatched: 0});
+					res.json({response: "success", isMatched: 0, bd: req.body});
 				});
 			}
 		});

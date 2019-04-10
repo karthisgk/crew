@@ -89,7 +89,17 @@ DB.prototype.delete = function(tbName, wh, cb) {
 };
 
 DB.prototype.authenticate = function(prof, cb) {
-	this.get('user', {email: prof.email}, (data) => {
+	var cond = {
+		$or: [
+			{email: prof.hasOwnProperty('email') ? prof.email : 'undefined'},
+			{$and: [
+				{authId: prof.authId},
+				{email: 'undefined'},
+				{provider: 'fb'}
+			]}
+		]
+	};
+	this.get('user', cond, (data) => {
 		var rt = prof;
 		rt.isNewUser = true;
 		if(data.length > 0){
