@@ -28,10 +28,7 @@ function Routes(app){
 	    	res.json(data);
 	    });
 	});
-	app.post('/newprofile', function(req, res, next){
-		res.set("Content-Type", "multipart/form-data");
-		next();
-	}, function (req, res) {
+	app.post('/newprofile', upload.single('file'), function (req, res) {
 		/*var exetension = path.extname(req.file.path);
 		var newFileName = req.body.authId + exetension;
 		var targetPath = './application/public/uploads/avatars/' + newFileName;
@@ -45,7 +42,7 @@ function Routes(app){
 		    	res.json({response: "success", approvedSession: req.body});
 		    });
         });*/
-        res.json({fd: req.body});
+        res.json({fd: req.body, file: req.file});
 	});
 
 	app.post('/fetch_user', function(req, res){
