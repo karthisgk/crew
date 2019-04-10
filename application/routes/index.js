@@ -28,7 +28,10 @@ function Routes(app){
 	    	res.json(data);
 	    });
 	});
-	app.post('/newprofile', function (req, res) {
+	app.post('/newprofile', function(req, res, next){
+		res.set("Content-Type", "multipart/form-data");
+		next();
+	}, function (req, res) {
 		/*var exetension = path.extname(req.file.path);
 		var newFileName = req.body.authId + exetension;
 		var targetPath = './application/public/uploads/avatars/' + newFileName;
