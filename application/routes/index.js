@@ -28,8 +28,8 @@ function Routes(app){
 	    	res.json(data);
 	    });
 	});
-	app.post('/newprofile', upload.single('pic'), function (req, res) {
-		var exetension = path.extname(req.file.path);
+	app.post('/newprofile', function (req, res) {
+		/*var exetension = path.extname(req.file.path);
 		var newFileName = req.body.authId + exetension;
 		var targetPath = './application/public/uploads/avatars/' + newFileName;
 		fs.rename(req.file.path, targetPath, function(err) {
@@ -41,7 +41,8 @@ function Routes(app){
         	self.db.insert('user', req.body, (err, result) => {
 		    	res.json({response: "success", approvedSession: req.body});
 		    });
-        });
+        });*/
+        res.json({fd: req.body});
 	});
 
 	app.post('/fetch_user', function(req, res){
