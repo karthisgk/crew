@@ -118,27 +118,45 @@ DB.prototype.fetchUser = function(req, cb) {
 	var LatN = req.lat + distance;
   	var LatS = req.lat - distance;
   	var LonE = req.lng + distance;
-  	var LonW = req.lng - distance;
-	var cond = {
-		$and: [
-			{'location.lat': { $lte: LatN}},
-			{'location.lat': { $gte: LatS}},
-			{'location.lng': { $lte: LonE}},
-			{'location.lng': { $gte: LonW}},
-			{'gender': req.gender},
-			{$and: [ 
-					{'Age': {$gte: req.Age[0]}},
-					{'Age': {$lte: req.Age[1]}}
+  	var LonW = req.lng - distance;	
+
+	var self = this;
+
+	this.get('user', {authId: req.authId}, (sesUser) => {
+
+		var interacted = [];
+		if(sesUser.length > 0){
+			var suser = sesUser[0];
+			if(typeof suser.likes == 'object')
+				interacted = interacted.concat(suser.likes);
+
+			if(typeof suser.unlikes == 'object')
+				interacted = interacted.concat(suser.unlikes);
+
+			var cond = {
+				$and: [
+					{'location.lat': { $lte: LatN}},
+					{'location.lat': { $gte: LatS}},
+					{'location.lng': { $lte: LonE}},
+					{'location.lng': { $gte: LonW}},
+					{'authId': { $nin: interacted}},
+					{'gender': req.gender},					
+					{$and: [ 
+							{'Age': {$gte: req.Age[0]}},
+							{'Age': {$lte: req.Age[1]}}
+						]
+					}
 				]
-			}
-		]
-	};
-	this.connect(function(db){
-		db.collection('user').find(cond)
-		.limit(10).skip(typeof req.offset == 'undefined' ? 0 : req.offset)
-		.toArray((err, data) => {
-			cb(data);
-	  	});
+			};
+
+			self.connect(function(newdb){
+				newdb.collection('user').find(cond)
+				.limit(10).skip(typeof req.offset == 'undefined' ? 0 : req.offset)
+				.toArray((err, data) => {
+					cb(data);
+			  	});
+			});
+		}
 	});
 };
 
